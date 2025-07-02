@@ -7,21 +7,48 @@
             <i id="sidebar-icon" class="fas fa-bars"></i>
         </button>
     </div>
+
     <nav class="p-4 space-y-2 text-sm flex-1">
-        <a href="{{ route('admin.dashboard') }}"
-            class="flex items-center px-3 py-2 rounded hover:bg-blue-100 @if (request()->routeIs('admin.dashboard')) bg-blue-50 text-blue-600 font-semibold @endif">
-            <i class="fas fa-home mr-2"></i>
-            <span class="sidebar-text">Dashboard</span>
-        </a>
-        <a href="{{route('admin.users.index')}}" class="flex items-center px-3 py-2 rounded hover:bg-blue-100">
-            <i class="fas fa-users mr-2"></i>
-            <span class="sidebar-text">Users</span>
-        </a>
-        <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-blue-100">
-            <i class="fas fa-cog mr-2"></i>
-            <span class="sidebar-text">Settings</span>
-        </a>
+        @can('view dashboard')
+            <a href="{{ route('admin.dashboard') }}"
+               class="flex items-center px-3 py-2 rounded hover:bg-blue-100 @if(request()->routeIs('admin.dashboard')) bg-blue-50 text-blue-600 font-semibold @endif">
+                <i class="fas fa-home mr-2"></i>
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+        @endcan
+
+        @can('manage users')
+            <a href="{{ route('admin.users.index') }}"
+               class="flex items-center px-3 py-2 rounded hover:bg-blue-100 @if(request()->routeIs('admin.users.*')) bg-blue-50 text-blue-600 font-semibold @endif">
+                <i class="fas fa-users mr-2"></i>
+                <span class="sidebar-text">Users</span>
+            </a>
+        @endcan
+
+        @can('manage roles')
+            <a href="{{ route('admin.roles.index') }}"
+               class="flex items-center px-3 py-2 rounded hover:bg-blue-100 @if(request()->routeIs('admin.roles.*')) bg-blue-50 text-blue-600 font-semibold @endif">
+                <i class="fas fa-user-shield mr-2"></i>
+                <span class="sidebar-text">Roles</span>
+            </a>
+        @endcan
+
+        @can('manage permissions')
+            <a href="{{ route('admin.permissions.index') }}"
+               class="flex items-center px-3 py-2 rounded hover:bg-blue-100 @if(request()->routeIs('admin.permissions.*')) bg-blue-50 text-blue-600 font-semibold @endif">
+                <i class="fas fa-key mr-2"></i>
+                <span class="sidebar-text">Permissions</span>
+            </a>
+        @endcan
+
+        @can('access settings')
+            <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-blue-100">
+                <i class="fas fa-cog mr-2"></i>
+                <span class="sidebar-text">Settings</span>
+            </a>
+        @endcan
     </nav>
+
     <div class="p-4 border-t">
         <button id="toggle-theme" class="w-full text-left px-3 py-2 rounded hover:bg-blue-100 flex items-center">
             <i class="fas fa-moon mr-2"></i>

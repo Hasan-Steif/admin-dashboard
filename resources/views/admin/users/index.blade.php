@@ -22,38 +22,31 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                            ID
-                        </th>
-                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                            Name
-                        </th>
-                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                            Email
-                        </th>
-                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                            Role
-                        </th>
-                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                            Actions
-                        </th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Role</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @forelse ($users as $user)
+                        @php
+                            $role = $user->getRoleNames()->first();
+                            $roleColor = match($role) {
+                                'admin' => 'bg-green-100 text-green-800',
+                                'editor' => 'bg-blue-100 text-blue-800',
+                                'viewer' => 'bg-yellow-100 text-yellow-800',
+                                default => 'bg-gray-100 text-gray-800',
+                            };
+                        @endphp
                         <tr class="hover:bg-gray-50 transition duration-200">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
-                                {{ $loop->iteration }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
-                                {{ $user->name }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                {{ $user->email }}
-                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ $user->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $user->email }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full {{ $user->is_admin ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }} shadow-sm">
-                                    {{ $user->is_admin ? 'Admin' : 'User' }}
+                                <span class="inline-flex px-2.5 py-1 text-xs font-semibold rounded-full {{ $roleColor }} shadow-sm">
+                                    {{ ucfirst($role) ?? 'No Role' }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex items-center gap-4">
@@ -80,9 +73,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-6 text-center text-sm text-gray-500">
-                                No users found.
-                            </td>
+                            <td colspan="5" class="px-6 py-6 text-center text-sm text-gray-500">No users found.</td>
                         </tr>
                     @endforelse
                 </tbody>
