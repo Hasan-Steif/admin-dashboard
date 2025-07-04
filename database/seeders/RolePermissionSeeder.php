@@ -25,6 +25,9 @@ class RolePermissionSeeder extends Seeder
             'access settings',
             'edit articles',
             'delete articles',
+            'manage comments',
+            'manage categories',
+            'manage posts'
         ];
 
         foreach ($permissions as $perm) {
