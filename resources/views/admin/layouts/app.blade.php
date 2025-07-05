@@ -1,4 +1,3 @@
-<!-- Layout File: resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -11,14 +10,12 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <script src="{{ asset('js/dashboard.js') }}" defer></script>
-
-
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans antialiased transition-colors duration-300">
     <div class="flex min-h-screen">
         @include('admin.layouts.sidebar')
-        <div id="main-content" class="flex-1 flex flex-col transition-all duration-300 ease-in-out ml-0">
+        <div id="main-content" class="ml-64 flex-1 flex flex-col transition-all duration-300 ease-in-out">
             @include('admin.layouts.navbar')
             <main class="flex-1 p-6">
                 @yield('content')
@@ -28,5 +25,4 @@
     <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
 </body>
-
 </html>
