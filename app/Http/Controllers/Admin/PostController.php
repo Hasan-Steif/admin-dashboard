@@ -30,7 +30,8 @@ class PostController extends Controller
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
             'body' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
+
         ]);
 
         $data['user_id'] = auth()->id();
@@ -58,7 +59,8 @@ class PostController extends Controller
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
             'body' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
+
         ]);
 
         $data['slug'] = Str::slug($data['title']);

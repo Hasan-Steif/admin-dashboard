@@ -13,6 +13,9 @@
         <div>
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <input type="text" name="title" value="{{ old('title', $post->title) }}" class="form-input w-full mt-1">
+            @error('title')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -22,16 +25,25 @@
                     <option value="{{ $category->id }}" @selected($post->category_id == $category->id)>{{ $category->name }}</option>
                 @endforeach
             </select>
+            @error('category_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Short Description</label>
             <textarea name="description" class="form-textarea w-full mt-1" rows="3">{{ old('description', $post->description) }}</textarea>
+            @error('description')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Full Content</label>
             <textarea name="body" class="form-textarea w-full mt-1" rows="5">{{ old('body', $post->body) }}</textarea>
+            @error('body')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -42,6 +54,9 @@
                 </div>
             @endif
             <input type="file" name="image" class="form-input w-full mt-1">
+            @error('image')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div class="flex justify-end">
