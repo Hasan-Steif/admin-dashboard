@@ -21,11 +21,38 @@ class PostController extends Controller
         $this->middleware('permission:manage posts')->only(['store', 'update', 'destroy']);
     }
 
-    public function index()
+
+    public function index(Request $request)
     {
-        $posts = Post::with('category', 'user')->paginate(10);
-        return response()->json($posts);
+        
+        $page    = (int) $request->input('page', 1);
+        $perPage = (int) $request->input('perPage', 10);
+
+        
+        $query = Post::with(['category', 'user']);
+
+        
+        $posts = $query->paginate($perPage, ['*'], 'page', $page);
+
+        
+        if ($page > $posts->lastPage()) {
+            return response()->json([
+                'data'         => [],
+                'current_page' => $page,
+                'hasMore'      => false,
+                'message'      => 'No additional data available.',
+            ], 200);
+        }
+
+       
+        return response()->json([
+            'data'         => $posts->items(),
+            'current_page' => $posts->currentPage(),
+            'hasMore'      => $posts->currentPage() < $posts->lastPage(),
+        ], 200);
     }
+
+
 
     public function show($id)
     {
