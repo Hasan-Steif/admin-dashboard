@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -28,15 +27,18 @@ class PostController extends Controller
     {
         try {
             $data = $request->validate([
-                'title' => 'required|string|max:255',
-                'category_id' => 'required|exists:categories,id',
-                'description' => 'required|string',
-                'body' => 'nullable|string',
-                'image' => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
+                'title'         => 'required|string|max:255',
+                'category_id'   => 'required|exists:categories,id',
+                'description'   => 'required|string',
+                'body'          => 'nullable|string',
+                'image'         => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
+                'is_published'  => 'required|boolean',
             ]);
 
-            $data['user_id'] = auth()->id();
-            $data['slug'] = Str::slug($data['title']);
+            $data['user_id']    = auth()->id();
+            $data['slug']       = Str::slug($data['title']);
+            // ensure boolean
+            $data['is_published'] = $request->boolean('is_published');
 
             if ($request->hasFile('image')) {
                 $data['image'] = $request->file('image')->store('posts', 'public');
@@ -44,7 +46,8 @@ class PostController extends Controller
 
             Post::create($data);
 
-            return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
+            return redirect()->route('admin.posts.index')
+                             ->with('success', 'Post created successfully.');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         }
@@ -60,14 +63,16 @@ class PostController extends Controller
     {
         try {
             $data = $request->validate([
-                'title' => 'required|string|max:255',
-                'category_id' => 'required|exists:categories,id',
-                'description' => 'required|string',
-                'body' => 'nullable|string',
-                'image' => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
+                'title'         => 'required|string|max:255',
+                'category_id'   => 'required|exists:categories,id',
+                'description'   => 'required|string',
+                'body'          => 'nullable|string',
+                'image'         => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
+                'is_published'  => 'required|boolean',
             ]);
 
-            $data['slug'] = Str::slug($data['title']);
+            $data['slug']         = Str::slug($data['title']);
+            $data['is_published'] = $request->boolean('is_published');
 
             if ($request->hasFile('image')) {
                 if ($post->image) {
@@ -78,7 +83,8 @@ class PostController extends Controller
 
             $post->update($data);
 
-            return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
+            return redirect()->route('admin.posts.index')
+                             ->with('success', 'Post updated successfully.');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         }
@@ -92,6 +98,8 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('admin.posts.index')
+                         ->with('success', 'Post deleted successfully.');
     }
 }
+

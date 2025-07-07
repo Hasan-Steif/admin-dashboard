@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('description');
             $table->longText('body')->nullable(); 
             $table->unsignedInteger('views')->default(0);
-            $table->boolean('is_published')->default(false);
+            $table->boolean('is_published')->default(false);;
             $table->timestamps();
         });
     }

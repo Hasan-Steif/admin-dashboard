@@ -47,8 +47,9 @@
                                     <a href="{{ route('admin.posts.edit', $post) }}"
                                         class="text-blue-600 hover:text-blue-800">Edit</a>
                                     <form action="{{ route('admin.posts.destroy', $post) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure?')">
-                                        @csrf @method('DELETE')
+                                        onsubmit="return confirm('Are you sure you want to delete this post?')">
+                                        @csrf
+                                        @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
                                     </form>
                                 </td>

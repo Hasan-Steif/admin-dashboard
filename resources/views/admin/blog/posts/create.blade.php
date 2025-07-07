@@ -55,8 +55,21 @@
                 @enderror
             </div>
 
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Status</label>
+                <select name="is_published" class="form-select w-full mt-1">
+                    <option value="0" @selected(old('is_published') == '0')>Draft</option>
+                    <option value="1" @selected(old('is_published') == '1')>Published</option>
+                </select>
+                @error('is_published')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <div class="flex justify-end">
-                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Publish</button>
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Publish
+                </button>
             </div>
         </form>
     </div>

@@ -16,7 +16,14 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        $category->load('posts.user', 'posts.comments.user');
+        $category->load([
+            'posts' => function ($q) {
+                $q->where('is_published', true)
+                    ->with(['user', 'comments.user'])
+                    ->latest();
+            }
+        ]);
+
         return view('frontend.categories.show', compact('category'));
     }
 }
