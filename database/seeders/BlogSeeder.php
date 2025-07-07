@@ -26,7 +26,7 @@ class BlogSeeder extends Seeder
 
         $categories->each(function ($category) use ($author) {
             for ($i = 1; $i <= 3; $i++) {
-                $imageFileName = strtolower($category->slug) . $i . '.png'; 
+                $imageFileName = strtolower($category->slug) . $i . '.png';
 
                 Post::create([
                     'user_id' => $author->id,
@@ -35,7 +35,7 @@ class BlogSeeder extends Seeder
                     'slug' => Str::slug("$category->name Post $i"),
                     'description' => "This is a sample description for $category->name Post $i.",
                     'body' => "This is the full body content for $category->name Post $i.",
-                    'image' => 'posts/' . $imageFileName, 
+                    'image' => 'posts/' . $imageFileName,
                     'views' => rand(0, 100),
                     'is_published' => true,
                 ]);

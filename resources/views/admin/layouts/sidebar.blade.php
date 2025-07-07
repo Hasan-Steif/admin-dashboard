@@ -7,56 +7,56 @@
     <nav class="flex-1 p-4 space-y-2 text-sm overflow-y-auto">
         @can('view dashboard')
             <a href="{{ route('admin.dashboard') }}"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.dashboard')) bg-blue-100 text-blue-700 @endif transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.dashboard')) bg-blue-100 text-blue-700 @endif transition duration-200">
                 <i class="fas fa-home text-blue-500 text-lg"></i>
                 <span>Dashboard</span>
             </a>
         @endcan
         @can('manage users')
             <a href="{{ route('admin.users.index') }}"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.users.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.users.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
                 <i class="fas fa-users text-blue-500 text-lg"></i>
                 <span>Users</span>
             </a>
         @endcan
         @can('manage posts')
             <a href="{{ route('admin.posts.index') }}"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.posts.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.posts.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
                 <i class="fas fa-newspaper text-blue-500 text-lg"></i>
                 <span>Posts</span>
             </a>
         @endcan
         @can('manage categories')
             <a href="{{ route('admin.categories.index') }}"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.categories.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.categories.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
                 <i class="fas fa-folder-open text-blue-500 text-lg"></i>
                 <span>Categories</span>
             </a>
         @endcan
         @can('manage comments')
             <a href="{{ route('admin.comments.index') }}"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.comments.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.comments.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
                 <i class="fas fa-comments text-blue-500 text-lg"></i>
                 <span>Comments</span>
             </a>
         @endcan
         @can('manage roles')
             <a href="{{ route('admin.roles.index') }}"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.roles.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.roles.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
                 <i class="fas fa-user-shield text-blue-500 text-lg"></i>
                 <span>Roles</span>
             </a>
         @endcan
         @can('manage permissions')
             <a href="{{ route('admin.permissions.index') }}"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.permissions.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 @if (request()->routeIs('admin.permissions.*')) bg-blue-100 text-blue-700 @endif transition duration-200">
                 <i class="fas fa-key text-blue-500 text-lg"></i>
                 <span>Permissions</span>
             </a>
         @endcan
         @can('access settings')
             <a href="#"
-               class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition duration-200">
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition duration-200">
                 <i class="fas fa-cog text-blue-500 text-lg"></i>
                 <span>Settings</span>
             </a>
@@ -64,7 +64,8 @@
     </nav>
 
     <div class="p-4 border-t">
-        <button id="toggle-theme" class="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition duration-200">
+        <button id="toggle-theme"
+            class="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition duration-200">
             <i class="fas fa-moon text-blue-500 text-lg"></i>
             <span>Toggle Theme</span>
         </button>
@@ -86,14 +87,17 @@
             background-color: #1f2937;
             border-color: #374151;
         }
+
         .dark .sidebar .text-gray-700 {
             color: #cbd5e1;
         }
+
         .dark .sidebar .hover\:bg-blue-50:hover,
         .dark .sidebar .bg-blue-50,
         .dark .sidebar .bg-blue-100 {
             background-color: #374151;
         }
+
         .dark .sidebar .text-blue-500 {
             color: #60a5fa;
         }

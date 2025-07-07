@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
- public function index()
+    public function index()
     {
-        
+
         $totalUsers = User::count();
 
-  
+
         $revenue = 34900;
         $orders = 278;
 
