@@ -2,38 +2,25 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Spatie\Permission\Exceptions\UnauthorizedException as SpatieUnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * A list of the exception types that are not reported.
-     *
-     * @var array<int, class-string<Throwable>>
-     */
     protected $dontReport = [
         //
     ];
 
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array<int, string>
-     */
     protected $dontFlash = [
         'current_password',
         'password',
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
     public function register()
     {
         $this->reportable(function (Throwable $e) {
@@ -44,18 +31,22 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['message' => 'Unauthenticated. Please log in to access this resource.'], 401);
+            return response()->json(['status' => 'error', 'message' => 'Unauthenticated. Please log in to access this resource.'], 401);
         }
 
         return redirect()->guest(route('login'));
     }
 
-
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof SpatieUnauthorizedException) {
+        if (
+            $exception instanceof SpatieUnauthorizedException ||
+            $exception instanceof AuthorizationException ||
+            $exception instanceof AccessDeniedHttpException
+        ) {
             return response()->json([
-                'message' => 'You do not have permission to perform this action.'
+                'status'  => 'error',
+                'message' => 'User does not have the right permissions.'
             ], 403);
         }
 

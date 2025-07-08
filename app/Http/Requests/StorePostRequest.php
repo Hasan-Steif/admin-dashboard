@@ -11,14 +11,16 @@ class StorePostRequest extends FormRequest
         return true;
     }
 
-    public function rules(): array
-    {
-        return [
-            'title' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'description' => 'required|string',
-            'body' => 'nullable|string',
-            'image' => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
-        ];
-    }
+   public function rules(): array
+{
+    return [
+        'title'        => 'required|string|max:255',
+        'category_id'  => 'required|exists:categories,id',
+        'description'  => 'required|string',
+        'body'         => 'nullable|string',
+        'is_published' => 'sometimes|nullable|boolean',
+        'image'        => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:10240',
+    ];
+}
+
 }

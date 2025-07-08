@@ -153,6 +153,11 @@ return [
 
     'display_permission_in_exception' => false,
 
+    'defaults' => [
+        'guard_name' => ['web', 'sanctum'],
+    ],
+
+
     /*
      * When set to true, the required role names are added to exception messages.
      * This could be considered an information leak in some contexts, so the default
