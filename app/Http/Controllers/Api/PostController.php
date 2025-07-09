@@ -15,11 +15,7 @@ use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-        $this->middleware('permission:manage posts')->only(['store', 'update', 'destroy']);
-    }
+
 
     public function index(Request $request)
     {
